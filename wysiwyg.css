@@ -1,0 +1,25 @@
+#outputEl{
+	text-align: -webkit-center;
+	margin: auto;
+}
+.personDiv{
+	border: solid;
+}
+.person__container:nth-child(odd){
+	background-color: lightblue;
+}
+.person__container:nth-child(even){
+	background-color: lightyellow;
+}
+.pic{
+	border: solid;
+}
+.cred:active{
+	border: dotted;
+}
+.bio:active{
+	border: dotted;
+}
+.lifespan:active{
+	border: dotted;
+}
