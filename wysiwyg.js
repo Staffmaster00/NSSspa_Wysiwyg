@@ -6,7 +6,7 @@ let personObjArr = [{
     bio: "Although Lü Bu is described in historical and fictional sources as an exceptionally mighty warrior, he was also notorious for his temperamental behaviour. He switched allegiances erratically and freely betrayed his allies, and was noted for his poor planning and management skills. He was always suspicious of others and could not control his subordinates. All these factors ultimately led to his downfall. In the 14th-century historical novel Romance of the Three Kingdoms, the details of his life are dramatised and some fictitious elements – including his romance with the fictional maiden Diaochan – are added to portray him as a nearly unchallenged warrior who was also a ruthless and impulsive brute bereft of morals.",
     image: "https://upload.wikimedia.org/wikipedia/commons/b/ba/L%C3%BC_Bu_Portrait.jpg",
     lifespan: {
-        birth: "unknown",
+        birth: "Unknown",
         death: "199"
     }
 }, {
@@ -50,36 +50,50 @@ for (var c = 0; c < 5; c++) {
     // Give each person element a unique identifier
     outputEl.innerHTML +=
         `<article class="person__container" id="person--${c}">
-				<div class="personDiv"><br>
-				  <header class="cred">${personObjArr[c].title} ${personObjArr[c].name}</header><br>
-				  <section class="bio"><img src=${personObjArr[c].image} alt="person" class="pic"><br><p id="words--${c}">${personObjArr[c].bio}</p></section><br>
-				  <footer class="lifespan">Birth:${personObjArr[c].lifespan.birth}<br>Death:${personObjArr[c].lifespan.death}</footer>
-				</div>
-			</article>`;
-}
-
-// Now containerEl will have elements in it
-var containerEl = document.getElementsByClassName("person__container");
-
-// Event listeners are created
-for (var i = 0; i < containerEl.length; i++) {
-    containerEl[i].addEventListener("click", function(event) { //need keyup part for the text changes
-        // Logic to execute when the element is clicked
-        blur();
-        input.focus();
-        input.scrollIntoView();
-        console.log("event", event.currentTarget.childNodes[1].childNodes[5].childNodes[2]);
-        let inputLocation = event.currentTarget.childNodes[1].childNodes[5].childNodes[2];
-
-        // event.currentTarget.innerHTML = input.value; 
-        input.addEventListener("keyup", function(event) {//TODO: figure out how to unhighlight html elements
-            inputLocation.innerHTML = input.value;
-        });
-    });
+                <div class="personDiv"><br>
+                  <header class="cred">${personObjArr[c].title} ${personObjArr[c].name}</header><br>
+                  <section class="bio"><img src=${personObjArr[c].image} alt="person" class="pic"><br><p class="words">${personObjArr[c].bio}</p></section><br>
+                  <footer class="lifespan">Birth:${personObjArr[c].lifespan.birth}<br>Death:${personObjArr[c].lifespan.death}</footer>
+                </div>
+            </article>`
 };
 
-input.addEventListener("keyup", function(event){
-	if (event.keycode === 13){
-		input.value = "";
-	}
+// Now containerEl will have elements in it
+// Event listeners are created
+var containerEl = document.getElementsByClassName("person__container");
+
+for (var i = 0; i < containerEl.length; i++) {
+    // console.log("containerEl outside EventListen", containerEl[i]);
+    containerEl[i].addEventListener("click", function() { //need keyup part for the text changes
+        // console.log("eventarget", event.target);
+        // console.log("containerEl inside EventListen but out of loop", containerEl[i]);
+        for (i = 0; i < containerEl.length; i++){
+        containerEl[i].classList.remove("dotted")
+        // console.log("containerEl inside Loop", containerEl[i]);
+        }
+        //have to use a for loop to see i
+        //event current target works
+        event.currentTarget.classList.toggle("dotted")
+        // Logic to execute when the element is clicked
+        input.value = "";
+        input.focus();
+        // console.log("event", event.currentTarget.className);
+    })
+}
+// console.log("dotted");
+input.addEventListener("keyup", function() {
+    for (i = 0; i < containerEl.length; i++){
+        if (containerEl[i].className === "person__container dotted") { //TODO: figure out how to unhighlight html elements
+                    let inputLocation = containerEl[i].querySelector(".words");
+                    inputLocation.innerText = input.value;
+                    console.log("inputlocation", inputLocation);
+
+            }
+        }
+})
+
+input.addEventListener("keyup", function(event) {
+    if (event.keycode === 13) {
+            input.value = "";
+        }
 })

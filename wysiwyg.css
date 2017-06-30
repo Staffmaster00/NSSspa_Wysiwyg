@@ -5,6 +5,7 @@
 .personDiv{
 	border: solid;
 }
+
 .person__container:nth-child(odd){
 	background-color: lightblue;
 }
@@ -14,12 +15,16 @@
 .pic{
 	border: solid;
 }
-.cred:active{
+/*.cred:active{
 	border: dotted;
 }
 .bio:active{
 	border: dotted;
 }
 .lifespan:active{
+	border: dotted;
+}*/
+
+.dotted{
 	border: dotted;
 }
